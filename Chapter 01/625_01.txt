@@ -1,0 +1,10 @@
+scapy
+nmap
+aircrack-ng
+iwconfig
+ifconfig wlan0
+iwlist wlan0 scanning 
+iwconfig wlan0 essid "Wireless Lab"
+ifconfig wlan0 192.168.1.3 netmask 255.255.255.0
+ifconfig wlan0
+ping 192.168.1.1

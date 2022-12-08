@@ -1,0 +1,10 @@
+adb devices
+adb shell
+su 
+ls
+adb -s 0072c52ca20e47cf shell
+adb install <nameoftheapp.apk>
+adb pull /data/data/com.android.email
+adb pushme.JPG /sdcard/
+adb logcat
+adb shell monkey 2

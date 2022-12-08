@@ -1,0 +1,17 @@
+nmap
+nmap -A 192.168.1.7
+nmap -O 192.168.1.17
+nmap -O -osscan-guess 192.168.1.7
+cat hosts.txt
+nmap -A -iL /tmp/hosts.txt
+nmap -sV 192.168.1.7
+nmap -sA 192.168.1.7
+nmap -PN 192.168.1.7
+nmap -sN 192.168.1.7
+nmap -sS -p 80 -f 192.168.1.7
+nmap -n 192.168.1.7 -D 192.168.1.110
+ettercap -G
+dsniff -help
+dsniff -i wlan0
+ftp 45.88.198.202
+dsniff -n -i eth0
