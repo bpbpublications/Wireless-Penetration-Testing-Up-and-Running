@@ -3,7 +3,7 @@
 Examine, Attack, and Exploit Flaws and Vulnerabilities in Advanced Wireless Networks
 
 This is the repository for [Wireless Penetration Testing: Up and Running
-](https://in.bpbonline.com/products/wireless-penetration-testing-up-and-running?_pos=1&_sid=17971356c&_ss=r&variant=43811965075694),published by BPB Publications. 
+](https://bpbonline.com/products/wireless-penetration-testing-up-and-running),published by BPB Publications. 
 
 ## About the Book
 This book satisfies any IT professional's desire to become a successful ethical hacker who is willing to be employed in identifying and exploiting flaws in the organization's network environment. This book explains in detail how to conduct wireless penetration tests using a wide variety of tools to simulate cyber attacks on both Android and iOS mobile devices and wireless networks.
